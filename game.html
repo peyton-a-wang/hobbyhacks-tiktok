@@ -1,43 +1,72 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel='stylesheet' type='text/css' media='screen' href='assets/css/game.css'>
-        <!-- <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script> -->
-    </head>
 
-    <body>
-        <video id="webcam" autoplay playsinline width="640" height="480"></video>
-        <canvas id="canvas" class="d-none"></canvas>
-        <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
-        <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-        
-        <div class="wrap">
-            <video id="video">
-                <script type="text/javascript" src="assets/js/game.js"></script>
-            </video>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Motion Detection</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/game.css'>
+    <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="assets/js/buffer-loader.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+</head>
 
-            <div class="overlay">
-                <div class="circle-background">
+<body>
+    <main id="motion-app">
+        <div class="form-control webcam-start" id="webcam-control">
+            <label class="form-switch">
+                <input type="checkbox" id="webcam-switch">
+                <i></i> 
+                <span id="webcam-caption">Allow Webcam</span>
+            </label>
+        </div>
+
+        <div id="errorMsg" class="col-12 alert-danger d-none">Please allow permission to access camera.</div>
+
+        <div class="md-modal md-effect-12">
+            <div class="app-panel md-content">
+                <div class="webcam-container d-none">
+                    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                    <canvas id="canvas-source" width="640" height="480"></canvas>
+                    <div class="motion-cam">
+                        <div class="motion-cam-title">Motion Cam</div>
+                        <canvas id="canvas-blended" width="640" height="480"></canvas>
+                    </div>
+                </div>
+                <div class="circle-container">
                     <div class="row row-top">
                         <div class="col-6 col-sm-3">
-                            <img src="images/left_top.png">
+                            <img class="virtual-drum" src="images/left_top.png" name="crash" vd-id='0'>
                         </div>
                         <div class="col-6 col-sm-3 offset-sm-6 d-none d-sm-inline">
-                            <img src="images/right_top.png">
+                            <img class="virtual-drum" src="images/right_top.png" name="hi-hat" vd-id='1'>
                         </div>
                     </div>
                     <div class="row row-bottom">
-                        <div class="col-4 p-sm-3 p-0 d-none d-sm-inline">
-                            <img src="images/left_shoulder.png">
+                        <div class="col-6 col-sm-3">
+                            <img class="virtual-drum" src="images/left_shoulder.png" name="floor-tom" vd-id='2'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="floor-tom-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
-                        <div class="col-4 p-sm-3 p-0 d-none d-sm-inline">
-                            <img src="images/right_shoulder.png">
+                        <div class="col-6 col-sm-3 offset-sm-6 d-none d-sm-inline">
+                            <img class="virtual-drum" src="images/right_shoulder.png" name="kick" vd-id='3'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="kick-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </body>
+
+        <div class="md-overlay"></div>
+
+    </main>
+    <script src='assets/js/motion-detection.js'></script>
+</body>
+
 </html>
