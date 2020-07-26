@@ -18,7 +18,7 @@ $("#webcam-switch").change(function() {
         webcam.start()
             .then(result => {
                 cameraStarted();
-                loadSounds();
+                // loadSounds();
                 // startMotionDetection();
             })
             .catch(err => {
@@ -64,36 +64,36 @@ var AudioContext = (
     null
 );
 
-function loadSounds() {
-    soundContext = new AudioContext();
-    bufferLoader = new BufferLoader(soundContext, [
-            audioPath + '/Crash.mp3',
-            audioPath + '/Hi-Hat.mp3',
-            audioPath + '/Floor-Tom.mp3',
-            audioPath + '/Kick.mp3',
-            audioPath + '/Snare.mp3',
-        ],
-        finishedLoading
-    );
-    bufferLoader.load();
-}
+// function loadSounds() {
+//     soundContext = new AudioContext();
+//     bufferLoader = new BufferLoader(soundContext, [
+//             audioPath + '/Crash.mp3',
+//             audioPath + '/Hi-Hat.mp3',
+//             audioPath + '/Floor-Tom.mp3',
+//             audioPath + '/Kick.mp3',
+//             audioPath + '/Snare.mp3',
+//         ],
+//         finishedLoading
+//     );
+//     bufferLoader.load();
+// }
 
 function finishedLoading(bufferList) {
     for (var i = 0; i < 4; i++) {
-        var source = soundContext.createBufferSource();
-        source.buffer = bufferList[i];
-        source.connect(soundContext.destination);
-        drums[i].sound = source;
+        // var source = soundContext.createBufferSource();
+        // source.buffer = bufferList[i];
+        // source.connect(soundContext.destination);
+        // drums[i].sound = source;
         drums[i].ready = true;
     }
 }
 
 function playHover(drum) {
     if (!drum.ready) return;
-    var source = soundContext.createBufferSource();
-    source.buffer = drum.sound.buffer;
-    source.connect(soundContext.destination);
-    source.start(0);
+    // var source = soundContext.createBufferSource();
+    // source.buffer = drum.sound.buffer;
+    // source.connect(soundContext.destination);
+    // source.start(0);
     drum.ready = false;
     playAnimate(drum);
     points++;
