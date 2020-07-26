@@ -247,7 +247,7 @@ main {
 }
 
 .app-panel .row-bottom {
-    bottom: 100;
+    bottom: 0;
 }
 
 @media screen and (min-width: 1140px) {
