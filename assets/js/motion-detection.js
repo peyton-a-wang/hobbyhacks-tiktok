@@ -6,7 +6,8 @@ let canvasBlended = $("#canvas-blended")[0];
 let contextSource = canvasSource.getContext('2d');
 let contextBlended = canvasBlended.getContext('2d');
 let drums = {};
-const audioPath = "sound"
+const audioPath = "sound";
+var points = 0;
 
 contextSource.translate(canvasSource.width, 0);
 contextSource.scale(-1, 1);
@@ -18,7 +19,7 @@ $("#webcam-switch").change(function() {
             .then(result => {
                 cameraStarted();
                 loadSounds();
-                startMotionDetection();
+                // startMotionDetection();
             })
             .catch(err => {
                 displayError();
@@ -29,6 +30,9 @@ $("#webcam-switch").change(function() {
         cameraStopped();
         setAllDrumReadyStatus(false);
     }
+});
+$("#play").click(function() {
+    startMotionDetection();
 });
 
 $('.virtual-drum').on('load', function() {
@@ -92,6 +96,9 @@ function playHover(drum) {
     source.start(0);
     drum.ready = false;
     playAnimate(drum);
+    points++;
+    console.log(points);
+    $("#play").html("Points: " + points.toString());
     // throttle the note
     setTimeout(setDrumReady, 500, drum);
 }
@@ -208,7 +215,7 @@ function setAllDrumReadyStatus(isReady) {
 
 function cameraStarted() {
     $("#errorMsg").addClass("d-none");
-    $("#webcam-caption").html("on");
+    $("#webcam-caption").html("Webcam On");
     $("#webcam-control").removeClass("webcam-off");
     $("#webcam-control").addClass("webcam-on");
     $(".webcam-container").removeClass("d-none");

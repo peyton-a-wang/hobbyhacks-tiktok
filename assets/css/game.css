@@ -1,3 +1,6 @@
+@import url(fontawesome-all.min.css);
+@import 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400';
+
 main {
     width: 100vw;
     height: 100vh;
@@ -244,7 +247,7 @@ main {
 }
 
 .app-panel .row-bottom {
-    bottom: 0;
+    bottom: 100;
 }
 
 @media screen and (min-width: 1140px) {
@@ -366,4 +369,28 @@ main {
         padding: 20px;
         z-index: 999999;
     }
+}
+
+.play {
+    position: fixed;
+    bottom: 50px;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 4px 2px;
+    cursor: pointer;
+    z-index: 100;
+    background-color: white;
+}
+
+.play:hover {
+    background-color: #4BD763; 
+}
+
+.play:focus {
+    background-color: #4BD763; 
 }
