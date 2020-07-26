@@ -1,26 +1,89 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <video id="webcam" autoplay playsinline width="640" height="480"></video>
+    <style>
+ .wrap {
+  position:relative;
+}
+
+video {
+  width:100%;
+  height:100%;
+    z-index:-100;
+}
+.overlay {
+  position:absolute;
+  top:0;
+  width:100%;
+  z-index:25;
+  text-align:center;
+}
+img {
+  display:inline-block;
+}
+
+#webcam{
+    position: fixed;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: rotateY(180deg);
+    pointer-events: none;
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+  }
+  
+  #canvas-source{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
+    pointer-events: none;
+  }
+
+  #canvas-blended {
+    width: 100%;
+  }
+    </style>
+<body>
+    <video id="webcam" autoplay playsinline width="640" height="480"></video>
         <canvas id="canvas" class="d-none"></canvas>
         <audio id="snapSound" src="audio/snap.wav" preload = "auto"></audio>
         <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-        <script>
-            const webcamElement = document.getElementById('webcam');
-            const canvasElement = document.getElementById('canvas');
-            const snapSoundElement = document.getElementById('snapSound');
-            const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
+   
+    <div class="wrap"><video id="video">
 
-            webcam.start()
-            .then(result =>{
-                console.log("webcam started");
-            })
-            .catch(err => {
-                console.log(err);
-            });
+    <script>
+        const webcamElement = document.getElementById('webcam');
+        const canvasElement = document.getElementById('canvas');
+        const snapSoundElement = document.getElementById('snapSound');
+        const webcam = new Webcam(webcamElement, 'user', canvasElement,snapSoundElement);
 
-            let picture = webcam.snap();
-            document.querySelector('#download-photo').href = picture;
-        </script>
-    </head>
+        webcam.start()
+        .then(result =>{
+            console.log("webcam started");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
+        let picture = webcam.snap();
+        document.querySelector('#download-photo').href = picture;
+    </script>
+    </video>
+<div class="overlay">
+    <img class="dot" src="images/halftone-744404_640.png" name="crash" vd-id='0'>
+</div>
+</div>
+
+</body>
 </html>
