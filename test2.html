@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Motion Detection</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel='stylesheet' type='text/css' media='screen' href='assets/css/game.css'>
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="assets/js/buffer-loader.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/handtrackjs/dist/handtrack.min.js"> </script>
+</head>
+
+<body>
+    <main id="motion-app">
+        <div class="form-control webcam-start" id="webcam-control">
+            <label class="form-switch">
+                <input type="checkbox" id="webcam-switch">
+                <i></i> 
+                <span id="webcam-caption">Allow Webcam</span>
+            </label>
+        </div>
+
+        <div id="errorMsg" class="col-12 alert-danger d-none">Please allow permission to access camera.</div>
+
+        <div class="fire"></div>
+
+        <div class="md-modal md-effect-12">
+            <div class="app-panel md-content">
+                <div class="webcam-container d-none">
+                    <video id="webcam" autoplay playsinline width="640" height="480"></video>
+                    <canvas id="canvas-source" width="640" height="480"></canvas>
+                    <div class="motion-cam">
+                        <div class="motion-cam-title">Motion Cam</div>
+                        <canvas id="canvas-blended" width="640" height="480"></canvas>
+                    </div>
+                </div>
+                <div class="circle-container">
+                    <div class="row row-top">
+                        <div class="col-6 col-sm-3 offset-sm-1">
+                            <img class="virtual-drum" src="images/left_top.png" name="left-top" vd-id='0'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="left-top-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 offset-sm-4 d-none d-sm-inline">
+                            <img class="virtual-drum" src="images/right_top.png" name="right-top" vd-id='1'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="right-top-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-bottom">
+                        <div class="col-6 col-sm-3 offset-sm-1">
+                            <img class="virtual-drum" src="images/left_shoulder.png" name="left-shoulder" vd-id='2'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="left-shoulder-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3 offset-sm-4 d-none d-sm-inline">
+                            <img class="virtual-drum" src="images/right_shoulder.png" name="right-shoulder" vd-id='3'>
+                            <div class="spinner-grow text-primary d-none" role="status" id="right-shoulder-glowing">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="play" id="play">
+    
+                    <button class="button play"> Points</button>
+                    <audio controls id="music">
+                        <source src="assets/music/siren.m4a">
+                        Your browser does not support the audio element.
+                        </audio>
+                    <button onclick="play()" type="button">Start Song!</button>
+                    <button onclick="pause()" type="button">Pause</button>
+                        <script>
+                            var myMusic= document.getElementById("music");
+                            function play() {
+                            myMusic.play();
+                            }
+                            
+                            function pause() {
+                            myMusic.pause();
+                            }
+                            </script>    
+                </div>
+                <div class="start" id="start">
+                    <button class="button start"> Points</button>
+                </div>
+                    
+            </div>
+        </div>
+
+        <div class="md-overlay"></div>
+        
+    
+    </main>
+    <script src='assets/js/motion-detection.js'></script>
+    <script src='assets/js/hand-track.js'></script>
+
+</body>
+
+</html>
