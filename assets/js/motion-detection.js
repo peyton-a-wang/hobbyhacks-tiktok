@@ -98,7 +98,7 @@ function playHover(drum) {
     playAnimate(drum);
     points++;
     console.log(points);
-    $("#play").html("Points: " + points.toString());
+    $("#start").html("Points: " + points.toString());
     // throttle the note
     setTimeout(setDrumReady, 500, drum);
 }
